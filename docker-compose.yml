@@ -1,0 +1,44 @@
+version: "3"
+services:
+  microservice-eureka:
+    image: microservice-eureka
+    ports:
+      - "8761:8761"
+
+  microservice-product:
+    image: microservice-product
+    ports:
+      - "8090:8090"
+    depends_on:
+      - microservice-eureka
+      - microservice-product-db
+
+  microservice-product-db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ~/docker-volumes/personal/microservices/user-service:/var/lib/postgresql
+    ports:
+      - '5550:5432'
+
+  microservice-inventory:
+    image: microservice-inventory
+    ports:
+      - "8091:8091"
+    depends_on:
+      - microservice-eureka
+      - microservice-inventory-db
+
+  microservice-inventory-db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ~/docker-volumes/personal/microservices/product-service:/var/lib/postgresql
+    ports:
+      - '6660:5432'
