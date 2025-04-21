@@ -112,8 +112,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 - **Java 17 o superior**
 - **Maven**
 - **Git**
-- **Acceso a internet** (para clonar repositorios si es necesario)
-- (Opcional) **Docker**, si utilizas servicios como base de datos o Config Server remoto
+- **Docker**
 
 ## 🔄 Orden de arranque de los microservicios
 
