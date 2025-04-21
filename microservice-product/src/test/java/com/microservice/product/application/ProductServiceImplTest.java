@@ -66,7 +66,7 @@ class ProductServiceImplTest {
     @Test
     void save_ShouldCreateProductAndCallInventory() {
         SaveNewProductDTO dto = new SaveNewProductDTO("New Product", BigDecimal.valueOf(20), 10);
-        when(inventoryHttpClient.save(any())).thenReturn(CompletableFuture.completedFuture(null));
+        when(inventoryHttpClient.save(any())).thenReturn(null);
 
         var status = productService.save(dto);
 

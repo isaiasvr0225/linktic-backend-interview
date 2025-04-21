@@ -10,9 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @package : com.microservice.product.application
@@ -47,6 +50,7 @@ public @Service class ProductServiceImpl implements ProductService{
         ));
     }
 
+    @Transactional
     @Override
     public HttpStatus save(SaveNewProductDTO saveNewProductDTO) {
         Product product = Product.builder()
@@ -69,7 +73,7 @@ public @Service class ProductServiceImpl implements ProductService{
                 .data(jsonApiData)
                 .build();
 
-        this.inventoryHttpClient.save(jsonApiRequest).join();
+        this.saveInventory(jsonApiRequest); //Asynchronous call to save inventory
         productRepository.save(product);
 
         return HttpStatus.CREATED;
@@ -114,5 +118,11 @@ public @Service class ProductServiceImpl implements ProductService{
 
         productRepository.delete(product);
         return HttpStatus.OK;
+    }
+
+    @Async("asyncExecutor")
+    public CompletableFuture<Void> saveInventory(JsonApiRequestDTO<InventoryAttributesDTO> dto) {
+        this.inventoryHttpClient.save(dto); // llamada sincrónica
+        return CompletableFuture.completedFuture(null);
     }
 }
