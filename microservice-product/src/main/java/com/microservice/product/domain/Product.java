@@ -3,6 +3,7 @@ package com.microservice.product.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 
@@ -17,6 +18,6 @@ public @Entity class Product {
     @Column(name = "id")
     private UUID id;
     private String name;
-    private Double price;
+    private BigDecimal price;
 }
 

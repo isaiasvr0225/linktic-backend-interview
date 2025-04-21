@@ -4,8 +4,7 @@ server:
 spring:
   application:
     name: ms-eureka
-  config:
-    import: optional:configserver:http://microservice-config-server:8888
+
 eureka:
   instance:
     hostname: localhost

@@ -4,8 +4,6 @@ server:
 spring:
   application:
     name: ms-product
-  config:
-    import: optional:configserver:http://microservice-config-server:8888
   jpa:
     hibernate:
       ddl-auto: create
@@ -21,7 +19,7 @@ spring:
         batch_versioned_data: true
         generate_statistics: true
   datasource:
-    url: jdbc:postgresql://microservice-product-db:5432/postgres
+    url: jdbc:postgresql://microservice-product-db:5442/postgres
     username: postgres
     password: postgres
     hikari:

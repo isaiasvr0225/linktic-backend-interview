@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient(name = "ms-product", url = "localhost:8090/api/v1/products")
+@FeignClient(name = "ms-product")
 public interface ProductHttpClient {
 
-    @GetMapping("/{productId}")
+    @GetMapping("/api/v1/products/{productId}")
     JsonApiResponseDTO<ProductResponseDTO> getProductById(@PathVariable(name = "productId") UUID productId);
 }

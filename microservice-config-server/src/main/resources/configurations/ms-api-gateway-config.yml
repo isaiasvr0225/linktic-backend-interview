@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ms-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: ms-products
+          uri: http://microservice-product:8090
+          predicates:
+            - Path=/api/v1/products/**
+        - id: ms-inventory
+          uri: http://microservice-inventory:8091
+          predicates:
+            - Path=/api/v1/inventories/**
+eureka:
+  client:
+    register-with-eureka: false
