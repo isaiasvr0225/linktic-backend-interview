@@ -73,7 +73,7 @@ public @Service class ProductServiceImpl implements ProductService{
                 .data(jsonApiData)
                 .build();
 
-        this.saveInventory(jsonApiRequest); //Asynchronous call to save inventory
+        this.saveInventory(jsonApiRequest).join(); //Asynchronous call to save inventory
         productRepository.save(product);
 
         return HttpStatus.CREATED;
